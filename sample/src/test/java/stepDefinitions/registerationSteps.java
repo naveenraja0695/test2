@@ -47,5 +47,36 @@ public class registerationSteps {
 		account.closeBrowser();
 	     
 	}
+	@When("user click on the signin button")
+	public void user_click_on_the_signin_button() throws InterruptedException {
+	    account.clickSignin();
+	}
+
+	@And("user enter valid login credentials {string} and {string}")
+	public void user_enter_valid_login_credentials_and(String email, String password) {
+			account.loginCredentials(email, password);
+	}
+
+	@And("user sigin to the website")
+	public void user_sigin_to_the_website() {
+	    account.clickLogin();
+	}
+
+	@Then("user should see {string} on page")
+	public void user_should_see (String string) {
+	   account.successSiginPage(string);
+	   account.closeBrowser();
+	}
+	
+	@When("user enter invalid login credentials {string} and {string}")
+	public void user_enter_invalid_login_credentials_and(String email, String password) {
+		account.loginCredentials(email, password);
+	}
+
+	@Then("user should see the message {string} on page")
+	public void user_should_see_the_message_on_page(String string) {
+	    account.errorMessage(string);
+	    account.closeBrowser();
+	}
 
 }

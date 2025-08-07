@@ -74,16 +74,12 @@ public class createAccountutils {
       if (!successMessage.getText().contains("Thank you for registering")) {
           throw new AssertionError("Registration failed or success message not found.");
       }}
-//		 WebElement actual =driver.findElement(By.xpath("//div[text()='Thank you for registering with Main Website Store.']"));
-//		    Assert.assertEquals(actual.getText(), "Thank you for registering with Main Website Store.");
-//		
-//		    
-//	 }
-//	 
+	 
 	 
 	 public void clickSignin() throws InterruptedException {
-		 Thread.sleep(5000);
+		 
 			driver.findElement(By.xpath("//a[contains(text(),'Sign In')]")).click();
+			Thread.sleep(5000);
 		}
 	 
 		public void loginCredentials(String email, String password) {
@@ -92,7 +88,27 @@ public class createAccountutils {
 		}
 		
 		public void clickLogin() {
-			driver.findElement(By.xpath("//span[text()='Sign In']")).click();
+			driver.findElement(By.id("send2")).click();
+		}
+		
+		public void successSiginPage(String string) {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		      WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		              By.xpath("//span[text()='Welcome, firstname lastname!']")));
+
+		      if (!successMessage.getText().contains(string)) {
+		          throw new AssertionError("Signin failed or success message not found.");
+		      }
+		}
+		
+		public void errorMessage(String string) {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		      WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(
+		              By.xpath("//div[text()='The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.']")));
+
+		      if (!successMessage.getText().contains(string)) {
+		          throw new AssertionError(" their is no incorect credentials");
+		      }
 		}
 		
 }
